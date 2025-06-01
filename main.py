@@ -4,6 +4,8 @@ from vad.vad import VAD
 from utils.config import SAMPLE_RATE, DURATION
 
 import soundfile as sf
+import numpy as np
+from diarization.diarization import diarize_local  
 
 def main():
     # Step 1: Record Audio
@@ -12,13 +14,11 @@ def main():
     # Step 2: Reduce Noise
     clean_audio = reduce_noise(audio, sample_rate=SAMPLE_RATE)
 
-    import numpy as np
-
-    # Convert to bytes in 20ms chunks (required by webrtcvad)
+    # Step 3: Voice Activity Detection
     frame_duration = 20  # ms
-    frame_size = int(SAMPLE_RATE * frame_duration / 1000)  # samples per frame
+    frame_size = int(SAMPLE_RATE * frame_duration / 1000)
     num_frames = len(clean_audio) // frame_size
-    vad=VAD()
+    vad = VAD()
     speech_detected = False
     for i in range(num_frames):
         frame = clean_audio[i * frame_size:(i + 1) * frame_size]
@@ -31,10 +31,12 @@ def main():
 
     print("Speaking Detected" if speech_detected else "No Speech Detected")
 
-
-    # Step 4: Save Output for Verification
+    # Step 4: Save Cleaned Audio
     sf.write("output_clean.wav", clean_audio, SAMPLE_RATE)
     print("Saved: output_clean.wav")
+
+    # Step 5: Diarization
+    diarize_local("output_clean.wav")
 
 if __name__ == "__main__":
     main()
