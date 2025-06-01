@@ -35,8 +35,6 @@ def main():
     sf.write("output_clean.wav", clean_audio, SAMPLE_RATE)
     print("Saved: output_clean.wav")
 
-    # Step 5: Diarization
-    diarize_local("output_clean.wav")
 
 if __name__ == "__main__":
     main()
