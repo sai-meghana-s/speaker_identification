@@ -2,9 +2,9 @@
 
 This project detects whether someone is speaking in real-time and extracts only the speech segments using Voice Activity Detection (VAD).
 
-## ✅ Current Features (Week 3)
+## ✅ Current Features 
 
-- 🔴 Live audio recording via microphone (5 seconds)  
+- 🔴 Live audio recording via microphone 
 - 🧼 Noise reduction using `noisereduce`  
 - 🗣️ Voice Activity Detection (VAD) using `webrtcvad`  
 - ✂️ Extraction of speech-only segments to `speech_only.wav`  
