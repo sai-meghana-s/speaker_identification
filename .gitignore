@@ -1,0 +1,16 @@
+# Ignore environment variables file
+.env
+
+# Python cache and environments
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+output.rttm
+output_clean.wav
+output_diarization.csv
+output_diarization.png
