@@ -1,12 +1,13 @@
 # 🎙️ Speaker Detection and Identification System
 
-This project detects the **number of speakers** in real-time and identifies each one by matching their voice with a known database.
+This project detects whether someone is speaking in real-time and extracts only the speech segments using Voice Activity Detection (VAD).
 
-## ✅ Current Features
+## ✅ Current Features 
 
-- 🔴 Live audio recording via microphone (5 seconds)  
+- 🔴 Live audio recording via microphone 
 - 🧼 Noise reduction using `noisereduce`  
 - 🗣️ Voice Activity Detection (VAD) using `webrtcvad`  
+- ✂️ Extraction of speech-only segments to `speech_only.wav`  
 - 📂 Modular Python codebase  
 
 ## 📁 Project Structure
@@ -16,7 +17,8 @@ speaker_identification/
 ├── audio/                 # Handles recording and noise reduction
 ├── vad/                   # Voice Activity Detection module
 ├── utils/                 # Config settings
-├── main.py                # Runs the full pipeline
+├── vad_pipeline.py        # Runs recording, noise reduction, VAD
+├── main.py                # Entry point that calls the pipeline
 ├── requirements.txt       # Python dependencies
 ```
 
@@ -44,8 +46,8 @@ speaker_identification/
    python main.py
    ```
 
-## 📌 Next Steps (Planned)
+## 📌 Next Steps 
 
 - 🧠 Speaker diarization using `pyannote-audio`  
 - 🎼 Feature extraction with `librosa`  
-- 🔐 Speaker identification using `SpeechBrain`  
+- 🔐 Speaker identification using `SpeechBrain`
