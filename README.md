@@ -8,7 +8,8 @@ This project detects whether someone is speaking in real-time and extracts only 
 - 🧼 Noise reduction using `noisereduce`  
 - 🗣️ Voice Activity Detection (VAD) using `webrtcvad`  
 - ✂️ Extraction of speech-only segments to `speech_only.wav`  
-- 📂 Modular Python codebase  
+- 📂 Modular Python codebase
+- 🎤 Speaker diarization support using `pyannote-audio` 
 
 ## 📁 Project Structure
 
@@ -16,6 +17,7 @@ This project detects whether someone is speaking in real-time and extracts only 
 speaker_identification/
 ├── audio/                 # Handles recording and noise reduction
 ├── vad/                   # Voice Activity Detection module
+├── diarization/           # Speaker diarization logic using pyannote-audio
 ├── utils/                 # Config settings
 ├── vad_pipeline.py        # Runs recording, noise reduction, VAD
 ├── main.py                # Entry point that calls the pipeline
@@ -46,8 +48,24 @@ speaker_identification/
    python main.py
    ```
 
-## 📌 Next Steps 
+## 🔐 Authentication for Diarization
 
-- 🧠 Speaker diarization using `pyannote-audio`  
-- 🎼 Feature extraction with `librosa`  
-- 🔐 Speaker identification using `SpeechBrain`
+- The diarization step uses Hugging Face's `pyannote-audio` models, which require a **Hugging Face API token**.
+- Create a free account at [huggingface.co](https://huggingface.co), then generate an access token under **Settings > Access Tokens**.
+- Save your token securely and update the `diarization.py` file to use it:
+
+    ```python
+    pipeline = Pipeline.from_pretrained(
+        "pyannote/speaker-diarization@2.1", 
+        use_auth_token="YOUR_HUGGINGFACE_TOKEN"
+    )
+    ```
+
+---
+
+## 📌 Planned Next Steps
+
+- 🎼 Implement **feature extraction** with `librosa` for improved speaker embeddings  
+- 🔐 Develop a **speaker identification** module leveraging `SpeechBrain` for voice matching   
+
+---
