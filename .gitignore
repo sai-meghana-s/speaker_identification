@@ -11,6 +11,7 @@ env/
 venv/
 .env
 output.rttm
+speech_only.wav
 output_clean.wav
 output_diarization.csv
 output_diarization.png

@@ -1,0 +1,6 @@
+webrtcvad
+sounddevice
+noisereduce
+numpy
+scipy
+soundfile

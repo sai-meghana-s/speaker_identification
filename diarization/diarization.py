@@ -1,10 +1,10 @@
 from pyannote.audio import Pipeline
 import matplotlib.pyplot as plt
-from pyannote.core import Segment
 import matplotlib.patches as mpatches
 import csv,os
+import torch
 from dotenv import load_dotenv
-
+from utils.config import SAMPLE_RATE
 
 
 load_dotenv() 
@@ -12,7 +12,15 @@ load_dotenv()
 def diarize_local(audio_file):
     token = os.getenv("HUGGINGFACE_HUB_TOKEN")
     pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization@2.1", use_auth_token=token)
-    diarization = pipeline(audio_file)
+
+    if isinstance(audio_file, str):  
+        diarization = pipeline(audio_file)
+    else:  
+        waveform = torch.tensor(audio_file, dtype=torch.float32).unsqueeze(0)  
+        diarization = pipeline({
+            "waveform": waveform,
+            "sample_rate": SAMPLE_RATE
+        })
 
     print(diarization)
 
@@ -52,7 +60,6 @@ def plot_diarization(diarization, output_image="diarization_plot.png"):
     ax.set_title("Speaker Diarization Timeline")
     ax.grid(True)
 
-    # Optional: Create a legend
     legend_patches = [mpatches.Patch(color=color_map[s], label=s) for s in speakers]
     ax.legend(handles=legend_patches, loc="upper right")
 
